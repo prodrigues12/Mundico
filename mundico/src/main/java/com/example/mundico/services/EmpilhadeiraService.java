@@ -23,15 +23,15 @@ public class EmpilhadeiraService {
 		logger.info("-> List all empilhadeiras");
 		return empRepository.findAll();
 	}
-
+	
+	public Optional<EmpilhadeiraModel> findByEmpilhadeira(UUID id){
+		logger.info("-> Get empilhadeira");
+		return empRepository.findById(id);
+	}
+	
 	public EmpilhadeiraModel salvar(EmpilhadeiraModel empModel) {
 		logger.info("-> Save empilhadeira");
 		return empRepository.save(empModel);
-	}
-	
-	public Optional<EmpilhadeiraModel> findById(UUID id){
-		logger.info("-> Get empilhadeira");
-		return empRepository.findById(id);
 	}
 	
 	public void delete (EmpilhadeiraModel empModel) {

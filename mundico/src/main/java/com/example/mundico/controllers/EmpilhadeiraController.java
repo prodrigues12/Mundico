@@ -36,7 +36,7 @@ public class EmpilhadeiraController {
 
 	@GetMapping("/empilhadeira/{id}")
 	public ResponseEntity<Object> getByIdEmpilhadeira(@PathVariable UUID id) {
-		Optional<EmpilhadeiraModel> empOptinal = empService.findById(id);
+		Optional<EmpilhadeiraModel> empOptinal = empService.findByEmpilhadeira(id);
 		if (empOptinal.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empilhadeira não localizada");
 		}
@@ -56,7 +56,7 @@ public class EmpilhadeiraController {
 	public ResponseEntity<Object> updateEmpilhadeira(@PathVariable(value = "id") UUID id,
 			@RequestBody @Valid EmpilhadeiraRecordDTO empDTO) {
 
-		Optional<EmpilhadeiraModel> empOptinal = empService.findById(id);
+		Optional<EmpilhadeiraModel> empOptinal = empService.findByEmpilhadeira(id);
 		if (empOptinal.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empilhadeira não localizada");
 		}
@@ -70,7 +70,7 @@ public class EmpilhadeiraController {
 	@DeleteMapping("/empilhadeira/{id}")
 	public ResponseEntity<Object> deleteEmpilhadeira(@PathVariable(value = "id") UUID id) {
 
-		Optional<EmpilhadeiraModel> empOptinal = empService.findById(id);
+		Optional<EmpilhadeiraModel> empOptinal = empService.findByEmpilhadeira(id);
 		if (empOptinal.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empilhadeira não localizada");
 		}
