@@ -6,6 +6,9 @@ import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,27 +17,44 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.mundico.DTO.EmpilhadeiraRecordDTO;
 import com.example.mundico.models.EmpilhadeiraModel;
+import com.example.mundico.repositories.EmpilhadeiraRepository;
 import com.example.mundico.services.EmpilhadeiraService;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 import jakarta.validation.Valid;
 
-@RestController()
+@RestController
+@RequestMapping("/empilhadeira")
 public class EmpilhadeiraController {
 
 	@Autowired
 	private EmpilhadeiraService empService;
 
-	@GetMapping("/empilhadeira")
-	public ResponseEntity<List<EmpilhadeiraModel>> getAllEmpilhadeira() {
+	@Autowired
+	EmpilhadeiraRepository empRepository;
+
+	@GetMapping
+	public ResponseEntity<List<EmpilhadeiraModel>> getAllEmpilhadeiras() {
+
+		List<EmpilhadeiraModel> list = empService.list();
+		if(!list.isEmpty()) {
+			for (EmpilhadeiraModel empilhadeira : list) {
+				UUID id = empilhadeira.getIdEmpilhadeira();
+				empilhadeira.add(linkTo(methodOn(EmpilhadeiraController.class).getByIdEmpilhadeira(id)).withSelfRel()
+				);
+			}
+		}
 		return ResponseEntity.status(HttpStatus.OK).body(empService.list());
 
 	}
 
-	@GetMapping("/empilhadeira/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<Object> getByIdEmpilhadeira(@PathVariable UUID id) {
 		Optional<EmpilhadeiraModel> empOptinal = empService.findByEmpilhadeira(id);
 		if (empOptinal.isEmpty()) {
@@ -45,14 +65,14 @@ public class EmpilhadeiraController {
 
 	}
 
-	@PostMapping("/empilhadeira")
+	@PostMapping
 	public ResponseEntity<EmpilhadeiraModel> saveEmpilhadeira(@RequestBody @Valid EmpilhadeiraRecordDTO empDTO) {
 		var empModel = new EmpilhadeiraModel();
 		BeanUtils.copyProperties(empDTO, empModel);
 		return ResponseEntity.status(HttpStatus.CREATED).body(empService.salvar(empModel));
 	}
 
-	@PutMapping("/empilhadeira/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<Object> updateEmpilhadeira(@PathVariable(value = "id") UUID id,
 			@RequestBody @Valid EmpilhadeiraRecordDTO empDTO) {
 
@@ -67,7 +87,7 @@ public class EmpilhadeiraController {
 
 	}
 
-	@DeleteMapping("/empilhadeira/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> deleteEmpilhadeira(@PathVariable(value = "id") UUID id) {
 
 		Optional<EmpilhadeiraModel> empOptinal = empService.findByEmpilhadeira(id);

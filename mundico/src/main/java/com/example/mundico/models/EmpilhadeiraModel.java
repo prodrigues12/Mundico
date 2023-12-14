@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,12 +14,13 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "TB_EMPILHADEIRA")
-public class EmpilhadeiraModel implements Serializable {
+public class EmpilhadeiraModel extends RepresentationModel<EmpilhadeiraModel>
+implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID idEmpilhadeira;
 	private String nome;
 	private String marca;

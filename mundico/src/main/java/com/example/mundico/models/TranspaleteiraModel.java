@@ -20,7 +20,7 @@ public class TranspaleteiraModel implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID idTranspareteira;
 	private String nome;
 	private String marca;
