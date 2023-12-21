@@ -38,4 +38,11 @@ public class EmpilhadeiraController {
         return ResponseEntity.status(HttpStatus.OK).body(empService.updateEmp(id, dto));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Empilhadeira> deleteEmpilhadeira (@PathVariable Long id){
+        empService.deleteEmpilhadeira(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
 }
+

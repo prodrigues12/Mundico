@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -15,9 +16,6 @@ public class EmpilhadeiraService {
 
     @Autowired
     private EmpilhadeiraRepository empRepository;
-
-
-
 
     public Empilhadeira createEmp(EmpilhadeiraDTO empDTO){
         Empilhadeira emp = new Empilhadeira(empDTO);
@@ -34,10 +32,20 @@ public class EmpilhadeiraService {
 
     public Empilhadeira updateEmp(Long id, EmpilhadeiraDTO dto ){
        Optional<Empilhadeira> empOpt = empRepository.findById(id);
-       Empilhadeira emp = empOpt.get();
 
-       return empRepository.save(emp);
+       if(empOpt.isPresent()) {
+           Empilhadeira emp = empOpt.get();
 
+           emp.setNumero(dto.numero());
+           emp.setMarca(dto.marca());
+           emp.setModelo(dto.modelo());
+           emp.setTipo(dto.tipo());
+           emp.setChassi(dto.chassi());
+
+           return empRepository.save(emp);
+       }else{
+           throw new NoSuchElementException("Empilhadeira não encontrada com o ID: " + id);
+       }
     }
     public void deleteEmpilhadeira(Long id){
         empRepository.deleteById(id);
