@@ -18,60 +18,14 @@ public class Empilhadeira implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idEmp;
-    private int numero;
+    private Integer numero;
     private String marca;
     private String modelo;
     private String tipo;
     @Column(unique = true)
     private String chassi;
 
-    public Long getIdEmp() {
-        return idEmp;
-    }
-
-    public void setIdEmp(Long idEmp) {
-        this.idEmp = idEmp;
-    }
-
-    public int getNumero() {
-        return numero;
-    }
-
-    public void setNumero(int numero) {
-        this.numero = numero;
-    }
-
-    public String getMarca() {
-        return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
-    public String getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public String getChassi() {
-        return chassi;
-    }
-
-    public void setChassi(String chassi) {
-        this.chassi = chassi;
-    }
+    private boolean status;
 
     public Empilhadeira (EmpilhadeiraDTO dto) {
         this.numero = dto.numero();
