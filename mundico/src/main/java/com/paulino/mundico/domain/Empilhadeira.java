@@ -18,14 +18,14 @@ public class Empilhadeira implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idEmp;
-    private Integer numero;
+    private int numero;
     private String marca;
     private String modelo;
     private String tipo;
     @Column(unique = true)
     private String chassi;
 
-    private boolean status;
+    private boolean status = true;
 
     public Empilhadeira (EmpilhadeiraDTO dto) {
         this.numero = dto.numero();

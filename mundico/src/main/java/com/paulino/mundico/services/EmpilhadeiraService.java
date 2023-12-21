@@ -18,6 +18,7 @@ public class EmpilhadeiraService {
 
     public Empilhadeira createEmp(EmpilhadeiraDTO empDTO) {
         Empilhadeira emp = new Empilhadeira(empDTO);
+
         return empRepository.save(emp);
     }
 

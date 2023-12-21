@@ -1,6 +1,6 @@
 package com.paulino.mundico.domain;
 
-import com.paulino.mundico.DTO.ChekListEmpDTO;
+import com.paulino.mundico.DTO.CheckinEmpDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class CheckListEmpilhadeira  implements Serializable {
+public class CheckinEmpilhadeira implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +34,7 @@ public class CheckListEmpilhadeira  implements Serializable {
 
     private boolean status;
 
-    public CheckListEmpilhadeira (ChekListEmpDTO dto){
+    public CheckinEmpilhadeira(CheckinEmpDTO dto){
         this.idMagalu= dto.idmagalu();
         this.numero = dto.numero();
         this.setor= dto.setorType();
