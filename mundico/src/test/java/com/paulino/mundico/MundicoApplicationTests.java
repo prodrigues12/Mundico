@@ -10,4 +10,6 @@ class MundicoApplicationTests {
 	void contextLoads() {
 	}
 
+    public static class ChekinEmpTest {
+    }
 }
