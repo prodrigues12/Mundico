@@ -60,4 +60,13 @@ public class EmpilhadeiraService {
             return true;
         }
     }
+
+    private boolean verificaStatusEmp(int numero) {
+        Optional<Empilhadeira> emp = empRepository.findByNumero(numero);
+        if (emp.get().isStatus()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -26,17 +26,21 @@ public class ChekinEmpService {
     public CheckinEmpilhadeira createCheckEmp(CheckinEmpDTO dto) {
         CheckinEmpilhadeira novoCheckList = new CheckinEmpilhadeira(dto);
 
-        if(verificarRepsostaFalse(dto)){
+
+
+        if (verificarRepsostaFalse(dto)) {
             //status da empilhaderia tem q ser falso
             Optional<Empilhadeira> empilhadeira = empRepository.findByNumero(dto.numero());
-            System.out.println(empilhadeira.get());
+
             Empilhadeira emp = new Empilhadeira();
-           emp = empilhadeira.get();
-           emp.setStatus(Boolean.FALSE);
+            emp = empilhadeira.get();
+            emp.setStatus(Boolean.FALSE);
         }
 
-      return repository.save(novoCheckList);
+        return repository.save(novoCheckList);
     }
+
+
 
     public List<CheckinEmpilhadeira> lisCheckinEmp() {
         return repository.findAll();
